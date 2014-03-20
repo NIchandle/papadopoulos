@@ -18,5 +18,92 @@
 	</style>
 </head>
 <body>
+	<canvas id="scene" width="800" height="600">
+	</canvas>
+	
+	<script type="text/javascript">
+
+	
+
+	var canvas = document.getElementById("scene");
+	var angle= 0;
+	var nombreSections = 0;
+
+	canvas.width= window.innerWidth;
+	canvas.height= window.innerHeight;
+	
+	/// DEFINITION DES VARIABLES APPELEES POUR LA CREATION DES DISQUES.
+	var disque1;
+	var disque2;
+	var disque3;
+	var disque4;
+
+
+	///DESSINER UN DISQUE DE LA VOLVELLE.
+	/// ---> drawDisque(nom du disque, position en x, position en y, rayon, angle par défault, nombre de section , couleur);
+
+	drawDisque(disque3, 800, 300, 128, 45, 12, "white");
+	drawDisque(disque1, 400, 300, 256, 15, 8, "white");
+	drawDisque(disque2, 400, 300, 128, 0, 4, "white");
+	drawDisque(disque4, 685, 140, 50, 0, 10, "white");
+	
+	///FONCTION DE DESSIN DU DISQUE.
+	function drawDisque(context,posX, posY, rayon, angle, nombreSections, color){
+
+		context = canvas.getContext("2d");
+
+		context.save(); //pour actualisation
+
+		var centreX = 0;
+		var centreY = 0;
+		var radius = rayon;
+
+		var calculX;
+		var calculY;
+
+
+		context.beginPath();
+		context.translate(posX,posY);
+		context.rotate(angle*Math.PI/180, posX, posY);
+		// context.arc(position X, position Y, rayon, debut du dessin (radian), fin du dessin)
+		context.arc( centreX, centreY, radius, 0, Math.PI*2);
+		context.fillStyle =color;
+		context.fill();
+		context.stroke();
+
+		
+		for (i=0; i<=nombreSections; i++){
+
+			// POSITIONS DES POINTS SUR LE CERCLE.
+			calculX = centreX + (radius * Math.cos(360/nombreSections*i* Math.PI / 180));
+			calculY = centreY + (radius * Math.sin(360/nombreSections*i* Math.PI / 180));
+
+			context.beginPath();
+			context.moveTo(centreX, centreY);
+			context.lineTo(calculX, calculY);
+			context.stroke();
+
+		}
+
+		context.restore();//pour actualisation
+
+	}
+
+	///ROTATION DE LA VOLVELLE.
+	///alalala
+
+	// canvas.addEventListener("mousemove", rotation, false);
+	// function rotation(event){
+	// 	angle = angle+1;	
+	// 	drawDisque(disque1, 400, 300, 256, angle/-2, 8, "red");
+	// 	drawDisque(disque2, 400, 300, 128, angle, 4 ,"cyan");
+
+
+	// }
+	
+
+
+	
+	</script>	
 </body>
 </html>
